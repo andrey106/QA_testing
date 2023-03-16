@@ -1,0 +1,35 @@
+CREATE DATABASE BSPB;
+
+USE BSPB;
+
+CREATE TABLE Security (
+    -> sec_id INT (10) PRIMARY KEY AUTO_INCREMENT,
+    -> login VARCHAR(20) NOT NULL,
+    -> password VARCHAR(20) NOT NULL);
+
+INSERT INTO Security (login, password) VALUES ('vanya123','qwerty'), ('Yakovlefff','3120000der'), ('Kotya95','doestmatter');
+
+CREATE TABLE Users ( 
+
+    -> id INT (10) PRIMARY KEY AUTO_INCREMENT, 
+
+    -> first_name VARCHAR(30), 
+
+    -> last_name VARCHAR(30), 
+
+    -> auth_id INT (10), 
+
+    -> FOREIGN KEY Users (auth_id) REFERENCES Security (sec_id) );
+
+INSERT INTO Users (first_name, last_name, auth_id) VALUES ('Ivan', 'Petrov', 1), ('Igor', 'Yakovlev', 2), ('Inna', 'Kotova', 3);
+
+CREATE TABLE Balances (
+    -> user_id INT (10),
+    -> total_amount INT (30) NOT NULL,
+    -> FOREIGN KEY Balances (user_id) REFERENCES Users (id));
+
+INSERT INTO Balances (user_id, total_amount) VALUES (1, 125000), (2, 270000), (3, 13500);
+
+CREATE TABLE Messages ( user_id INT (10), id INT (30) NOT NULL, text_message TEXT (500), FOREIGN KEY Messages (user_id) REFERENCES Users (id));
+
+INSERT INTO Messages (user_id, id, text_message) VALUES (1, 1, 'Huston, we have a problem'), (1, 2, 'Well done'), (2, 1, 'Welcome to BSPB!'), (3, 1, 'I am glad to see you'), (3, 2, 'I do not have money'), (3, 3, 'Need to do something');
